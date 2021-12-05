@@ -118,19 +118,16 @@ function ElevationScroll(props) {
 
 export default function Header(props) {
 const classes = useStyles()
-const [value, setValue] = useState(0)
 const [anchorEl, setAnchorEl] = useState(null)
 const [openMenu, setOpenMenu] = useState(false)
-const [selectedIndex, setSelectedIndex] = useState(0)
 const [openDrawer, setOpentDrawer] = useState(false)
-
 const theme  = useTheme()
 const matches = useMediaQuery(theme.breakpoints.down("md"))
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 
 const handleChange = (e, newValue) => {
-  setValue(newValue)
+  props.setValue(newValue)
 }
 
 const handleClick = (e) => {
@@ -146,7 +143,7 @@ const handleClose = (e) => {
 const handleMenuItemClick = ((e, i) => {
   setAnchorEl(null)
   setOpenMenu(false)
-  setSelectedIndex(i)
+  props.setSelectedIndex(i)
 })
 
 const menuOptions = useMemo(
@@ -217,10 +214,10 @@ useEffect(() => {
   [...menuOptions, ...routes].forEach(route => {
     switch(window.location.pathname) {
       case `${route.link}`:
-        if (value !== route.activeIndex) {
-          setValue(route.activeIndex)
-          if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
-            setSelectedIndex(route.selectedIndex)
+        if (props.value !== route.activeIndex) {
+          props.setValue(route.activeIndex)
+          if (route.selectedIndex && route.selectedIndex !== props.selectedIndex) {
+            props.setSelectedIndex(route.selectedIndex)
           }
         }
         break;
@@ -228,12 +225,12 @@ useEffect(() => {
           break
     }
   })
-}, [value, menuOptions, selectedIndex, routes])
+}, [props.value, menuOptions, props.selectedIndex, routes, props])
 
 const tabs = (
   <React.Fragment>
     <Tabs
-      value={value}
+      value={props.value}
       onChange={handleChange}
       className={classes.tabContainer}
       indicatorColor="primary"
@@ -277,8 +274,8 @@ const tabs = (
         component={Link}
         to={option.link}
         classes={{root: classes.menuItem}}
-        onClick={(e) => {handleMenuItemClick(e, i); setValue(1); handleClose()}}
-        selected={i === selectedIndex && value === 1}
+        onClick={(e) => {handleMenuItemClick(e, i); props.setValue(1); handleClose()}}
+        selected={i === props.selectedIndex && props.value === 1}
         >
         {option.name}
         </MenuItem>
@@ -305,9 +302,9 @@ const drawer = (
             button
             component={Link}
             to={route.link}
-            selected={value === route.activeIndex}
+            selected={props.value === route.activeIndex}
             classes={{selected: classes.drawerItemSelected}}
-            onClick={() => {setOpentDrawer(false); setValue(route.activeIndex)}}
+            onClick={() => {setOpentDrawer(false); props.setValue(route.activeIndex)}}
           >
             <ListItemText
               disableTypography
@@ -319,12 +316,12 @@ const drawer = (
           )
         )}
         <ListItem 
-          onClick={() => {setOpentDrawer(false); setValue(5)}} 
+          onClick={() => {setOpentDrawer(false); props.setValue(5)}} 
           divider 
           button 
           component={Link}
           to="/estimate"
-          selected={value ===5}
+          selected={props.value ===5}
           classes={{root: classes.drawerItemEstimate, selected:classes.drawerItemSelected}}
         >
           <ListItemText
@@ -355,7 +352,7 @@ return (
           component={Link}
           to='/'
           className={classes.logoContainer}
-          onClick={() => setValue(0)} disableRipple>
+          onClick={() => props.setValue(0)} disableRipple>
           <img
             className={classes.logo}
             src={logo}
