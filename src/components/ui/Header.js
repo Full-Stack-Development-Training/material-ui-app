@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import {Link} from 'react-router-dom'
 import { makeStyles } from "@material-ui/styles"
 import {
@@ -125,7 +125,7 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 
 const handleChange = (e, newValue) => {
-  setValue(value)
+  setValue(newValue)
 }
 
 const handleClick = (e) => {
@@ -138,7 +138,14 @@ const handleClose = (e) => {
   setOpenMenu(false)
 }
 
-const menuOptions = [
+const handleMenuItemClick = ((e, i) => {
+  setAnchorEl(null)
+  setOpenMenu(false)
+  setSelectedIndex(i)
+})
+
+const menuOptions = useMemo(
+  () => [
   {
     name: "Services",
     link: "/services",
@@ -163,9 +170,11 @@ const menuOptions = [
     activeIndex: 1,
     selectedIndex: 3
   }
-]
+],
+[]
+)
 
-const routes = [
+const routes = useMemo(() => [
   {
     name: 'Home',
     link: '/',
@@ -191,18 +200,13 @@ const routes = [
     link: '/contact',
     activeIndex: 4
   }
-]
-
-const handleMenuItemClick = ((e, i) => {
-  setAnchorEl(null)
-  setOpenMenu(false)
-  setSelectedIndex(i)
-})
-
+],
+[]
+)
 
 useEffect(() => {
+
   [...menuOptions, ...routes].forEach(route => {
-    console.log('active index: ', route.activeIndex, 'selected index: ', route.selectedIndex)
     switch(window.location.pathname) {
       case `${route.link}`:
         if (value !== route.activeIndex) {
@@ -217,7 +221,7 @@ useEffect(() => {
     }
   })
 }, [value, menuOptions, selectedIndex, routes])
-console.log('value: ', value)
+
 
 const tabs = (
   <React.Fragment>
@@ -277,7 +281,7 @@ const tabs = (
     >
       {menuOptions.map((option, i) => (
         <MenuItem
-        key={option}
+        key={i}
         component={Link}
         to={option.link}
         classes={{root: classes.menuItem}}
