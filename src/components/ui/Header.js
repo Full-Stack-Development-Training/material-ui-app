@@ -107,7 +107,12 @@ function ElevationScroll(props) {
       backgroundColor: theme.palette.common.arcOrange
     },
     drawerItemSelected: {
-      opacity: 1
+      '& .MuiListItemText-root': {
+        opacity: 1
+      }
+    },
+    appbar: {
+      zIndex: theme.zIndex.modal + 1
     }
   }))
 
@@ -263,11 +268,12 @@ const tabs = (
       MenuListProps={{onMouseLeave: handleClose}}
       classes={{paper: classes.menu}}
       elevation={0}
+      style={{zIndex: 1302}}
       keepMounted
     >
       {menuOptions.map((option, i) => (
         <MenuItem
-        key={i}
+        key={`${option}${i}`}
         component={Link}
         to={option.link}
         classes={{root: classes.menuItem}}
@@ -290,6 +296,7 @@ const drawer = (
       onOpen={() => setOpentDrawer(true)}
       classes={{paper: classes.drawer}}
     >
+      <div className={classes.toolbarMargin} />
       <List disablePadding>
         {routes.map(route => (
           <ListItem
@@ -299,17 +306,12 @@ const drawer = (
             component={Link}
             to={route.link}
             selected={value === route.activeIndex}
+            classes={{selected: classes.drawerItemSelected}}
             onClick={() => {setOpentDrawer(false); setValue(route.activeIndex)}}
           >
             <ListItemText
               disableTypography
-              className={
-                value === route.activeIndex
-                ? 
-                [classes.drawerItem, classes.drawerItemSelected]
-                : 
-                classes.drawerItem
-              }
+              className={classes.drawerItem}
             >
               {route.name}
             </ListItemText>
@@ -323,10 +325,10 @@ const drawer = (
           component={Link}
           to="/estimate"
           selected={value ===5}
-          className={classes.drawerItemEstimate}
+          classes={{root: classes.drawerItemEstimate, selected:classes.drawerItemSelected}}
         >
           <ListItemText
-            className={value === 5 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}
+            className={classes.drawerItem}
             disableTypography
           >
             Free Estimate
@@ -347,7 +349,7 @@ const drawer = (
 return (
   <React.Fragment>
     <ElevationScroll>
-      <AppBar> {/*by default position is 'fixed'*/}
+      <AppBar className={classes.appbar}> {/*by default position is 'fixed'*/}
       <Toolbar disableGutters>
         <Button
           component={Link}
