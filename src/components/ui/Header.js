@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo} from "react";
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom'
 import { makeStyles } from "@material-ui/styles"
 import {
@@ -135,7 +136,7 @@ const handleClick = (e) => {
   setOpenMenu(true)
 }
 
-const handleClose = (e) => {
+const handleClose = () => {
   setAnchorEl(null)
   setOpenMenu(false)
 }
@@ -161,7 +162,7 @@ const menuOptions = useMemo(
     selectedIndex: 1
   },
   {
-    name: "Mobile App Development",
+    name: "iOS/Android App Development",
     link: "/mobileapps",
     activeIndex: 1,
     selectedIndex: 2
@@ -366,4 +367,11 @@ return (
   <div className={classes.toolbarMargin} />
   </React.Fragment>
   )
+}
+
+Header.propTypes = {
+  value: PropTypes.string.isRequired,
+  selectedIndex: PropTypes.number.isRequired,
+  setValue: PropTypes.func.isRequired,
+  setSelectedIndex: PropTypes.func.isRequired,
 }

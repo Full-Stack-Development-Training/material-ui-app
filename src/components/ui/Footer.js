@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 import footerAdornment from '../../assets/Footer Adornment.svg'
@@ -78,7 +79,7 @@ const Footer = (props) => {
               Custom Software Development
             </Grid>
             <Grid item component={Link} to="/mobileapps" onClick={()=>{props.setValue(1); props.setSelectedIndex(2)}} className={classes.link}>
-              Mobile App Development
+              iOS/Android App Development
             </Grid>
             <Grid item component={Link} to="/websites" onClick={()=>{props.setValue(1); props.setSelectedIndex(3)}} className={classes.link}>
               Website Development
@@ -164,5 +165,9 @@ const Footer = (props) => {
     </footer>
 }
 
+Footer.propTypes = {
+  setValue: PropTypes.func.isRequired,
+  setSelectedIndex: PropTypes.func.isRequired,
+}
 
 export default Footer
