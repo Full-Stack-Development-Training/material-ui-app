@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect, useMemo} from "react";
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom'
@@ -17,7 +18,8 @@ SwipeableDrawer,
 IconButton,
 List,
 ListItem,
-ListItemText
+ListItemText,
+Typography
 }
 from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -81,10 +83,15 @@ function ElevationScroll(props) {
     },
     menuItem: {
       ...theme.typography.tab,
+      color: '#fff',
       opacity: 0.7,
       '&:hover': {
         opacity: 1
       }
+    },
+    menuItemSelected: {
+      ...theme.typography.tab,
+      color: '#fff',
     },
     drawerIconContainer: {
       marginLeft: 'auto',
@@ -211,7 +218,6 @@ const routes = useMemo(() => [
 )
 
 useEffect(() => {
-
   [...menuOptions, ...routes].forEach(route => {
     switch(window.location.pathname) {
       case `${route.link}`:
@@ -221,9 +227,12 @@ useEffect(() => {
             props.setSelectedIndex(route.selectedIndex)
           }
         }
+      break;
+      case '/estimate':
+        props.setValue(5)
         break;
-        default:
-          break
+      default:
+        break
     }
   })
 }, [props.value, menuOptions, props.selectedIndex, routes, props])
@@ -255,6 +264,9 @@ const tabs = (
       color="secondary"
       className={classes.button}
       onClose={handleClose}
+      component={Link}
+      to='/estimate'
+      onClick={() => props.setValue(5)}  
     >
       Free Estimate
     </Button>
@@ -271,14 +283,14 @@ const tabs = (
     >
       {menuOptions.map((option, i) => (
         <MenuItem
-        key={`${option}${i}`}
-        component={Link}
-        to={option.link}
-        classes={{root: classes.menuItem}}
-        onClick={(e) => {handleMenuItemClick(e, i); props.setValue(1); handleClose()}}
-        selected={i === props.selectedIndex && props.value === 1}
+          key={`${option}${i}`}
+          component={Link}
+          to={option.link}
+          classes={{root: classes.menuItem, selected:classes.menuItemSelected}}
+          onClick={(e) => {handleMenuItemClick(e, i); props.setValue(1); handleClose()}}
+          selected={i === props.selectedIndex && props.value === 1}
         >
-        {option.name}
+         {option.name}
         </MenuItem>
       ))}
     </Menu>
