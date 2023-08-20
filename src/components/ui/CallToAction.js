@@ -1,34 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types';
-import { Grid, Typography, Button, useMediaQuery } from '@material-ui/core'
-import ButtonArrow from './ButtonArrow'
-import { Link } from 'react-router-dom'
-import { makeStyles, useTheme } from '@material-ui/styles'
-import background from '../../assets/background.jpg'
-import mobileBackground from '../../assets/mobileBackground.jpg'
+import React from "react";
+import PropTypes from "prop-types";
+import { Grid, Typography, Button, useMediaQuery } from "@material-ui/core";
+import ButtonArrow from "./ButtonArrow";
+import { Link } from "react-router-dom";
+import { makeStyles, useTheme } from "@material-ui/styles";
+import background from "../../assets/background.jpg";
+import mobileBackground from "../../assets/mobileBackground.jpg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   learnButton: {
     ...theme.typography.learnButton,
-    fontSize: '0.7rem',
+    fontSize: "0.7rem",
     height: 35,
     padding: 5,
     [theme.breakpoints.down("sm")]: {
-      marginBottom: '2em'
-    }
+      marginBottom: "2em",
+    },
   },
   background: {
-    height: '60em',
+    height: "60em",
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundAttachment: 'fixed',
-    width: '100%',
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    width: "100%",
     [theme.breakpoints.down("sm")]: {
       backgroundImage: `url(${mobileBackground})`,
-      backgroundAttachment: 'inherit'
-    }
+      backgroundAttachment: "inherit",
+    },
   },
   estimateButton: {
     ...theme.typography.estimate,
@@ -36,47 +36,67 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 205,
     backgroundColor: theme.palette.common.arcOrange,
-    fontSize: '1.5rem',
-    marginRight: '5em',
-    marginLeft: '2em',
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.light
+    fontSize: "1.5rem",
+    marginRight: "5em",
+    marginLeft: "2em",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
     },
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
-      marginRight: 0
-    }
-  }
-}))
+      marginRight: 0,
+    },
+  },
+}));
 
 const CallToAction = (props) => {
-  const classes = useStyles()
-  const theme = useTheme()
-  const matchesSM = useMediaQuery(theme.breakpoints.down('sm'))
+  const classes = useStyles();
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Grid container alignItems='center' justifyContent={matchesSM ? 'center' : 'space-between'} className={classes.background} direction={matchesSM ? 'column' : 'row'}>
-      <Grid item style={{marginLeft: matchesSM ? 0 : '5em', textAlign: matchesSM ? 'center' : 'inherit'}}>
-        <Grid container direction='column'>
+    <Grid
+      container
+      alignItems="center"
+      justifyContent={matchesSM ? "center" : "space-between"}
+      className={classes.background}
+      direction={matchesSM ? "column" : "row"}
+    >
+      <Grid
+        item
+        style={{
+          marginLeft: matchesSM ? 0 : "5em",
+          textAlign: matchesSM ? "center" : "inherit",
+        }}
+      >
+        <Grid container direction="column">
           <Grid item>
-            <Typography variant='h2'>
-              Simple Software.<br />Revolutionary results.
+            <Typography variant="h2">
+              Simple Software.
+              <br />
+              Revolutionary results.
             </Typography>
-            <Typography variant='subtitle2' style={{fontSize: '1.5rem'}}>
+            <Typography variant="subtitle2" style={{ fontSize: "1.5rem" }}>
               Take advantage of the 21st Century.
             </Typography>
-            <Grid container justifyContent={matchesSM ? 'center' : undefined} item>
+            <Grid
+              container
+              justifyContent={matchesSM ? "center" : undefined}
+              item
+            >
               <Button
-              component={Link}
-              to='/revolution'
-              variant='outlined'
-              className={classes.learnButton}
-              onClick={() => props.setValue(2)}
+                component={Link}
+                to="/revolution"
+                variant="outlined"
+                className={classes.learnButton}
+                onClick={() => props.setValue(2)}
               >
-                <span style={{marginRight: 5}}>
-                  Learn more
-                </span>
-                <ButtonArrow width={10} height={10} fill={theme.palette.common.arcBlue}/>
+                <span style={{ marginRight: 5 }}>Learn more</span>
+                <ButtonArrow
+                  width={10}
+                  height={10}
+                  fill={theme.palette.common.arcBlue}
+                />
               </Button>
             </Grid>
           </Grid>
@@ -85,8 +105,8 @@ const CallToAction = (props) => {
       <Grid item>
         <Button
           component={Link}
-          to='/estimate'
-          variant='contained'
+          to="/estimate"
+          variant="contained"
           className={classes.estimateButton}
           onClick={() => props.setValue(5)}
         >
@@ -94,12 +114,11 @@ const CallToAction = (props) => {
         </Button>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 CallToAction.propTypes = {
   setValue: PropTypes.func.isRequired,
-}
+};
 
-
-export default CallToAction
+export default CallToAction;
