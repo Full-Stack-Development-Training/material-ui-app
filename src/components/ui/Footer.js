@@ -118,7 +118,7 @@ const Footer = (props) => {
         <Grid item className={classes.gridItem}>
           <Grid container direction="column" spacing={2}>
             <Grid item component={Link} to="/contact" onClick={()=>props.setValue(4)} className={classes.link}>
-              Contact Us4
+              Contact Us
             </Grid>
           </Grid>
         </Grid>

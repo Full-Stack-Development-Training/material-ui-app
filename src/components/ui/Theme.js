@@ -53,6 +53,11 @@ export default createTheme({
       color: arcGrey,
       fontWeight: 300,
     },
+    caption: {
+      fontSize: "1rem",
+      fontWeight: 300,
+      color: arcGrey,
+    },
     subtitle1: {
       fontSize: "1.25rem",
       fontWeight: 300,
@@ -73,4 +78,26 @@ export default createTheme({
       fontWeight: "bold",
     },
   },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: arcBlue,
+        fontSize: '1rem'
+      }
+    },
+    MuiInput: {
+      root: {
+        color: arcGrey,
+        fontWeight: 300
+      },
+      underline: {
+        "&:before": {
+          borderBottom: `2px solid ${arcBlue}`
+        },
+        "&:hover:not($disabled):not($focused):not($error):before": {
+          borderBottom: `2px solid ${arcBlue}`
+        }
+      }
+    }
+  }
 });
