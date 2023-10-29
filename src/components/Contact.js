@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/styles";
@@ -127,6 +128,14 @@ const Contact = (props) => {
       default:
         break;
     }
+  };
+
+  const onConfirm = () => {
+    // setOpen(true)
+    // axios
+    //   .get("https://sendmail-apphealx7a-uc.a.run.app")
+    //   .then(() => console.log(res))
+    //   .catch((err) => console.log(err));
   };
 
   return (
@@ -380,7 +389,7 @@ const Contact = (props) => {
                     phoneHelper.length !== 0 ||
                     emailHelper.length !== 0
                   }
-                  onClick={() => setOpen(true)}
+                  onClick={onConfirm}
                 >
                   Send Message
                   <img

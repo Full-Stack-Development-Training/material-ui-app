@@ -1,7 +1,9 @@
 module.exports = {
-    "env": {
-        "es2021": true
+    env: {
+        es6: true,
+        node: true,
     },
+    parser: "@babel/eslint-parser",
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
@@ -11,7 +13,10 @@ module.exports = {
             "jsx": true
         },
         "ecmaVersion": 13,
-        "sourceType": "module"
+        "requireConfigFile": false,
+        "babelOptions": {
+            "presets": ["@babel/preset-react"],
+          },
     },
     "plugins": [
         "react"
