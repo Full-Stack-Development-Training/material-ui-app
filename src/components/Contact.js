@@ -22,6 +22,8 @@ import airplane from "../assets/send.svg";
 import ButtonArrow from "./ui/ButtonArrow";
 import mobileBackground from "../assets/mobileBackground.jpg";
 
+const { SEND_EMAIL_URL } = process.env
+
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundImage: `url(${background})`,
@@ -119,7 +121,7 @@ const Contact = (props) => {
           e.target.value
         );
         if (!valid) {
-          setPhoneHelper("Invalid email");
+          setPhoneHelper("Invalid phone");
         } else {
           setPhoneHelper("");
         }
@@ -132,10 +134,10 @@ const Contact = (props) => {
 
   const onConfirm = () => {
     // setOpen(true)
-    // axios
-    //   .get("https://sendmail-apphealx7a-uc.a.run.app")
-    //   .then(() => console.log(res))
-    //   .catch((err) => console.log(err));
+    axios
+      .get(`${SEND_EMAIL_URL}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -232,7 +234,8 @@ const Contact = (props) => {
                   fullWidth
                   label="Name"
                   id="name"
-                  value={name}
+                  defaultValue="John"
+                  // value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
@@ -243,7 +246,8 @@ const Contact = (props) => {
                   error={emailHelper.length !== 0}
                   helperText={emailHelper}
                   id="email"
-                  value={email}
+                  defaultValue="email@email.com"
+                  // value={email}
                   onChange={onChange}
                 />
               </Grid>
@@ -254,7 +258,8 @@ const Contact = (props) => {
                   error={phoneHelper.length !== 0}
                   helperText={phoneHelper}
                   id="phone"
-                  value={phone}
+                  defaultValue="9999999999"
+                  // value={phone}
                   onChange={onChange}
                 />
               </Grid>
@@ -262,8 +267,8 @@ const Contact = (props) => {
             <Grid item style={{ maxWidth: "20em" }}>
               <TextField
                 fullWidth
-                InputProps={{ disableUnderline: true }}
-                value={message}
+                defaultValue="hello!"
+                // value={message}
                 id="message"
                 onChange={(e) => setMessage(e.target.value)}
                 multiline
@@ -325,7 +330,8 @@ const Contact = (props) => {
                 fullWidth
                 label="Name"
                 id="name"
-                value={name}
+                defaultValue="John"
+                // value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Grid>
@@ -336,7 +342,8 @@ const Contact = (props) => {
                 error={emailHelper.length !== 0}
                 helperText={emailHelper}
                 id="email"
-                value={email}
+                defaultValue="email@email.com"
+                // value={email}
                 onChange={onChange}
               />
             </Grid>
@@ -347,7 +354,8 @@ const Contact = (props) => {
                 error={phoneHelper.length !== 0}
                 helperText={phoneHelper}
                 id="phone"
-                value={phone}
+                defaultValue="9999999999"
+                // value={phone}
                 onChange={onChange}
               />
             </Grid>
@@ -355,7 +363,8 @@ const Contact = (props) => {
               <TextField
                 fullWidth
                 InputProps={{ disableUnderline: true }}
-                value={message}
+                defaultValue="Hello!"
+                // value={message}
                 id="message"
                 onChange={(e) => setMessage(e.target.value)}
                 multiline
@@ -383,12 +392,12 @@ const Contact = (props) => {
                 <Button
                   variant="contained"
                   className={classes.sendButton}
-                  disabled={
-                    name.length === 0 ||
-                    message.length === 0 ||
-                    phoneHelper.length !== 0 ||
-                    emailHelper.length !== 0
-                  }
+                  // disabled={
+                  //   name.length === 0 ||
+                  //   message.length === 0 ||
+                  //   phoneHelper.length !== 0 ||
+                  //   emailHelper.length !== 0
+                  // }
                   onClick={onConfirm}
                 >
                   Send Message
